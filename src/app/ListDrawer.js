@@ -3,17 +3,52 @@ import Drawer from 'material-ui/Drawer';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import ActionInfo from 'material-ui/svg-icons/action/info';
+import ContentCreate from 'material-ui/svg-icons/content/create';
+import TextField from 'material-ui/TextField';
 
-const ListDrawer = () => (
-  <Drawer width='200' docked='true' open='true'>
-    <List>
-      <Subheader>Pellets</Subheader>
-      <ListItem primaryText="Buy Oreos" rightIcon={<ActionInfo />} />
-      <ListItem primaryText="Eat Tu Lan" rightIcon={<ActionInfo />} />
-      <ListItem primaryText="Go to the Gym" rightIcon={<ActionInfo />} />
-      <ListItem primaryText="Code" rightIcon={<ActionInfo />} />
-    </List>
-  </Drawer>
-);
+const iconStyles = {
+  marginRight: 24,
+};
+
+class ListDrawer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: ''
+    };
+  }
+
+  addItem() {
+    if (this.state.text !== '') {
+      console.log(this.state.text);
+      this.props.newItem(this.state.text);
+      this.setState({
+        text: ''
+      });      
+    }
+  }
+
+  //Ref: http://stackoverflow.com/questions/29791721/how-get-data-from-material-ui-textfield-dropdownmenu-components
+  _handleTextFieldChange(e) {
+    this.setState({
+      text: e.target.value
+    });
+  }
+
+  render() {
+    return(
+      <Drawer width={200} open={true}>
+        <List>
+          <Subheader>Pellets</Subheader>
+          {this.props.list.map((item) => 
+            (<ListItem primaryText={item.note} rightIcon={<ActionInfo />} />)
+          )}
+          <ListItem rightIcon={<ContentCreate onClick={this.addItem.bind(this)}/>}>
+            <TextField hintText="New item" value={this.state.text} onChange={this._handleTextFieldChange.bind(this)} />
+          </ListItem>
+        </List>
+      </Drawer>);
+  }
+}
 
 export default ListDrawer;
