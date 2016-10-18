@@ -33,7 +33,6 @@ class ListDrawer extends React.Component {
     this.setState({
       text: e.target.value
     });
-  }
 
   render() {
     return(
@@ -41,7 +40,7 @@ class ListDrawer extends React.Component {
         <List>
           <Subheader>Pellets</Subheader>
           {this.props.list.map((item) => 
-            (<ListItem primaryText={item.note} rightIcon={<ActionInfo />} />)
+            (<ListItem primaryText={item.text} rightIcon={<ActionInfo />} />)
           )}
           <ListItem rightIcon={<ContentCreate onClick={this.addItem.bind(this)}/>}>
             <TextField hintText="New item" value={this.state.text} onChange={this._handleTextFieldChange.bind(this)} />

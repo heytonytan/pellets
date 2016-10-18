@@ -7,17 +7,29 @@ import VRContent from './VRContent';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
+injectTapEventPlugin(test);
+
+var addPellet = function() {
+  fetch('localhost:3000/pellets', {
+    method: 'POST',
+    body: { text: text }
+  });
+};
+
+var getPellets = function() {
+  return fetch('localhost:3000/pellets')
+  .then(response => response);
+};
 
 var data = {
   list: [{
-    note: 'Buy Oreos',
+    text: 'Buy Oreos',
     position: '' + (Math.random() * -10 + 5) + ' ' + (Math.random() * -10 + 5) + ' -10'
   }, {
-    note:  'Eat Tu Lan', 
+    text:  'Eat Tu Lan', 
     position: '' + (Math.random() * -10 + 5) + ' ' + (Math.random() * -10 + 5) + ' -10'
   },{
-    note: 'Go to the Gym',
+    text: 'Go to the Gym',
     position: '' + (Math.random() * -10 + 5) + ' ' + (Math.random() * -10 + 5) + ' -10'
   }]
 };
@@ -25,13 +37,21 @@ var data = {
 class App extends React.Component {
   constructor(props) {
     super(props);
+    var context = this;
+    getPellets()
+    .then((response) => {
+      console.log('data from a server', response.body);
+      // this.state = {
+      //   data: response.body
+      // };
+    });
   }
 
-  newItem(value) {
+  newItem(text) {
     console.log('adding', value);
     var newPosition = '' + (Math.random() * -10 + 5) + ' ' + (Math.random() * -10 + 5) + ' -10';
     data.list.push({
-      note: value,
+      text: text,
       position: newPosition
     });
   }

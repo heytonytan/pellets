@@ -52,7 +52,7 @@ class VRContent extends React.Component {
               geometry='primitive: box; depth: 0.2; height: 0.2; width: 0.2'
               material={{color: '#24CAFF'}}/>
             <Text
-              text={item.note}
+              text={item.text}
               color='#FFFFFF'
               position='-2 1 0'/>
           </Entity>);
