@@ -42,17 +42,44 @@ class VRContent extends React.Component {
         <Entity light={{type: 'directional', intensity: 1}} position='1 1 0'/>
 
         <Entity
-          //animation__rot={{property: 'rotation', dur: 2000, loop: true, to: '360 360 360'}}
-          //animation__sca={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
+          animation__rot={{property: 'rotation', dur: 20000, loop: true, to: '360 360 360'}}
+          animation__sca={{property: 'scale', dir: 'alternate', dur: 1000, loop: true, to: '1.1 1.1 1.1'}}
           geometry='primitive: box'
           material={{color: this.state.color, opacity: 0.6}}
-          position='0 -0.5 -3'
-          onClick={this.changeColor}>
+          position='0 -1 -3'
+          onClick={this.changeColor.bind(this)}>
           <Entity
-            //animation__sca={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
+            animation__sca={{property: 'scale', dir: 'alternate', dur: 1000, loop: true, to: '2 2 2'}}
             geometry='primitive: box; depth: 0.2; height: 0.2; width: 0.2'
             material={{color: '#24CAFF'}}/>
         </Entity>
+
+        <Entity
+          animation__rot={{property: 'rotation', dur: 20000, loop: true, to: '360 360 360'}}
+          animation__sca={{property: 'scale', dir: 'alternate', dur: 1000, loop: true, to: '1.1 1.1 1.1'}}
+          geometry='primitive: box'
+          material={{color: this.state.color, opacity: 0.6}}
+          position='1.5 0 -3'
+          onClick={this.changeColor.bind(this)}>
+          <Entity
+            animation__sca={{property: 'scale', dir: 'alternate', dur: 1000, loop: true, to: '2 2 2'}}
+            geometry='primitive: box; depth: 0.2; height: 0.2; width: 0.2'
+            material={{color: '#24CAFF'}}/>
+        </Entity>
+
+        <Entity
+          animation__rot={{property: 'rotation', dur: 20000, loop: true, to: '360 360 360'}}
+          animation__sca={{property: 'scale', dir: 'alternate', dur: 1000, loop: true, to: '1.1 1.1 1.1'}}
+          geometry='primitive: box'
+          material={{color: this.state.color, opacity: 0.6}}
+          position='-1.5 0 -3'
+          onClick={this.changeColor.bind(this)}>
+          <Entity
+            animation__sca={{property: 'scale', dir: 'alternate', dur: 1000, loop: true, to: '2 2 2'}}
+            geometry='primitive: box; depth: 0.2; height: 0.2; width: 0.2'
+            material={{color: '#24CAFF'}}/>
+        </Entity>
+
       </Scene>
     );
   }
