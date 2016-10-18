@@ -1,8 +1,9 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const MyAwesomeReactComponent = () => (
+// need to edit
+const Content = () => (
   <RaisedButton label="Default" />
 );
 
-export default MyAwesomeReactComponent;
+export default Content;
