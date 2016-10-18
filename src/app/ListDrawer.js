@@ -1,11 +1,11 @@
 import React from 'react';
-import MobileTearSheet from './../../lib/MobileTearSheet';
+import Drawer from 'material-ui/Drawer';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 
-const ListBar = () => (
-  <MobileTearSheet>
+const ListDrawer = () => (
+  <Drawer width='200' docked='true' open='true'>
     <List>
       <Subheader>Pellets</Subheader>
       <ListItem primaryText="Buy Oreos" rightIcon={<ActionInfo />} />
@@ -13,7 +13,7 @@ const ListBar = () => (
       <ListItem primaryText="Go to the Gym" rightIcon={<ActionInfo />} />
       <ListItem primaryText="Code" rightIcon={<ActionInfo />} />
     </List>
-  </MobileTearSheet>
+  </Drawer>
 );
 
-export default ListBar;
+export default ListDrawer;
