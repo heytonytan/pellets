@@ -4,56 +4,79 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ListDrawer from './ListDrawer';
 import VRContent from './VRContent';
+import $ from 'jquery';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin(test);
+// injectTapEventPlugin(test);
 
-var addPellet = function() {
-  fetch('localhost:3000/pellets', {
-    method: 'POST',
-    body: { text: text }
+var addPellet = function(text) {
+  console.log('in add pellet', JSON.stringify({text:text}));
+
+  $.ajax({
+    url: 'http://localhost:3000/pellets',
+    type: 'POST',
+    data: {text: text},
+    success: function (data) {
+      console.log('yay!');
+    },
+    error: function (error) {
+      console.error('Pellets Server: Failed to add pellet', error);
+    }
   });
+
+  // // Fetch doesn't work properly for POST requests.
+  // var myHeaders = new Headers();
+  // myHeaders.append('Content-Type', 'application/json');
+  // myHeaders.append('access-control-allow-origin', '*');
+  // myHeaders.append('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  // myHeaders.append('access-control-allow-headers', 'content-type, accept');
+  // myHeaders.append('access-control-max-age', 10); // Seconds.
+
+  // fetch('http://localhost:3000/pellets', {
+  //   method: 'POST',
+  //   headers: myHeaders,
+  //   mode: 'no-cors',
+  //   cache: 'default',
+  //   body: JSON.stringify({ text: text })
+  // })
+  // .then((response) => console.log('yay, created pellet', response))
+  // .catch((error) => console.log('error in posting Pellets', error));
 };
 
 var getPellets = function() {
-  return fetch('localhost:3000/pellets')
-  .then(response => response);
+  return fetch('http://localhost:3000/pellets')
+  .then((response) => response.json())
+  .catch((error) => console.log('error in getting Pellets', error));
 };
 
-var data = {
-  list: [{
-    text: 'Buy Oreos',
-    position: '' + (Math.random() * -10 + 5) + ' ' + (Math.random() * -10 + 5) + ' -10'
-  }, {
-    text:  'Eat Tu Lan', 
-    position: '' + (Math.random() * -10 + 5) + ' ' + (Math.random() * -10 + 5) + ' -10'
-  },{
-    text: 'Go to the Gym',
-    position: '' + (Math.random() * -10 + 5) + ' ' + (Math.random() * -10 + 5) + ' -10'
-  }]
-};
+// hacky workaround
+var update;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    var context = this;
+    this.state = {
+      pellets: []
+    };
+    update = this.update.bind(this);
+    // get Pellets from database
+    this.update();
+  }
+
+  update() {
     getPellets()
-    .then((response) => {
-      console.log('data from a server', response.body);
-      // this.state = {
-      //   data: response.body
-      // };
+    .then((pellets) => {
+      this.setState({
+        pellets: pellets
+      });
     });
   }
 
   newItem(text) {
-    console.log('adding', value);
-    var newPosition = '' + (Math.random() * -10 + 5) + ' ' + (Math.random() * -10 + 5) + ' -10';
-    data.list.push({
-      text: text,
-      position: newPosition
-    });
+    addPellet(text);
+    console.log('this', this);
+    update();
   }
 
   render() {
@@ -61,10 +84,10 @@ class App extends React.Component {
       <MuiThemeProvider>
         <div>
           <div>
-            <ListDrawer list={this.props.data.list} newItem={this.newItem}/>
+            <ListDrawer list={this.state.pellets} newItem={this.newItem}/>
           </div>
           <div>
-            <VRContent list={this.props.data.list}/>
+            <VRContent list={this.state.pellets}/>
           </div>
         </div>
       </MuiThemeProvider>
@@ -73,6 +96,6 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-  <App data={data} />,
+  <App />,
   document.getElementById('app')
 );

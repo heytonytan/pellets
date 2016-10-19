@@ -33,6 +33,7 @@ class ListDrawer extends React.Component {
     this.setState({
       text: e.target.value
     });
+  }
 
   render() {
     return(
