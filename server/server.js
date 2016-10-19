@@ -1,8 +1,6 @@
 /* Database */
 var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/test');
-// mongoose.connect('mongodb://heroku_hktz3v8j:1nd1hk0940mnn5cgij44v3crja@ds061676.mlab.com:61676/heroku_hktz3v8j');
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test');
 
 var Pellet = mongoose.model('Pellet', { 
   text: String,
