@@ -26,7 +26,6 @@ var express = require('express');
 var expressJSON = require('express-json'); 
 var bodyParser = require('body-parser');
 var server = express();
-server.use(express.static(__dirname + "/build"));
 server.use(expressJSON()); 
 server.use(bodyParser()); 
 
@@ -36,6 +35,8 @@ var defaultCorsHeaders = {
   'access-control-allow-headers': 'content-type, accept',
   'access-control-max-age': 10 // Seconds.
 };
+
+server.use('/', express.static(__dirname + "/build"));
 
 server.get('/pellets', function (req, res) {
   Pellet.find().then(function(data) {
