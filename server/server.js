@@ -36,7 +36,7 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 
-server.use('/', express.static(__dirname + "/build"));
+server.use(express.static(__dirname + '/build'));
 
 server.get('/pellets', function (req, res) {
   Pellet.find().then(function(data) {

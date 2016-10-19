@@ -14,7 +14,7 @@ var addPellet = function(text) {
   console.log('in add pellet', JSON.stringify({text:text}));
 
   $.ajax({
-    url: 'http://localhost:3000/pellets',
+    url: 'http://localhost:8080/pellets',
     type: 'POST',
     data: {text: text},
     success: function (data) {
@@ -45,7 +45,7 @@ var addPellet = function(text) {
 };
 
 var getPellets = function() {
-  return fetch('http://localhost:3000/pellets')
+  return fetch('http://localhost:8080/pellets')
   .then((response) => response.json())
   .catch((error) => console.log('error in getting Pellets', error));
 };
