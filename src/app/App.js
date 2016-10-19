@@ -53,14 +53,14 @@ class App extends React.Component {
   }
 
   getPellets() {
-    return fetch('http://localhost:8080/pellets')
+    return fetch('/pellets')
     .then((response) => response.json())
     .catch((error) => console.log('error in getting Pellets', error));
   }
 
   addPellet(text) {
     $.ajax({
-      url: 'http://localhost:8080/pellets',
+      url: '/pellets',
       type: 'POST',
       data: {text: text},
       success: function (data) {
