@@ -10,20 +10,8 @@ import $ from 'jquery';
 // http://stackoverflow.com/a/34015469/988941
 // injectTapEventPlugin(test);
 
-var addPellet = function(text) {
+// var addPellet = function(text) {
   // console.log('in add pellet', JSON.stringify({text:text}));
-
-  $.ajax({
-    url: 'http://localhost:8080/pellets',
-    type: 'POST',
-    data: {text: text},
-    success: function (data) {
-      console.log('yay!');
-    },
-    error: function (error) {
-      console.error('Pellets Server: Failed to add pellet', error);
-    }
-  });
 
   // // Fetch doesn't work properly for POST requests.
   // var myHeaders = new Headers();
@@ -42,16 +30,7 @@ var addPellet = function(text) {
   // })
   // .then((response) => console.log('yay, created pellet', response))
   // .catch((error) => console.log('error in posting Pellets', error));
-};
-
-var getPellets = function() {
-  return fetch('http://localhost:8080/pellets')
-  .then((response) => response.json())
-  .catch((error) => console.log('error in getting Pellets', error));
-};
-
-// hacky workaround
-var update;
+// };
 
 class App extends React.Component {
   constructor(props) {
@@ -59,13 +38,42 @@ class App extends React.Component {
     this.state = {
       pellets: []
     };
-    update = this.update.bind(this);
-    // get Pellets from database
+
+    // Do all the initial binding here to guarantee proper this contexts
+    this.getPellets = this.getPellets.bind(this);
+    this.update = this.update.bind(this);
+    this.addPellet = this.addPellet.bind(this);
+    this.newItem = this.newItem.bind(this);
+  }
+
+  componentDidMount() {
+    // Fetch any initial ajax data in this method, as per Facebook's advice:
+    // https://facebook.github.io/react/tips/initial-ajax.html
     this.update();
   }
 
+  getPellets() {
+    return fetch('http://localhost:8080/pellets')
+    .then((response) => response.json())
+    .catch((error) => console.log('error in getting Pellets', error));
+  }
+
+  addPellet(text) {
+    $.ajax({
+      url: 'http://localhost:8080/pellets',
+      type: 'POST',
+      data: {text: text},
+      success: function (data) {
+        console.log('yay!');
+      },
+      error: function (error) {
+        console.error('Pellets Server: Failed to add pellet', error);
+      }
+    });
+  }
+
   update() {
-    getPellets()
+    this.getPellets()
     .then((pellets) => {
       this.setState({
         pellets: pellets
@@ -74,8 +82,8 @@ class App extends React.Component {
   }
 
   newItem(text) {
-    addPellet(text);
-    update();
+    this.addPellet(text);
+    this.update();
   }
 
   render() {
