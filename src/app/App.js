@@ -11,7 +11,7 @@ import $ from 'jquery';
 // injectTapEventPlugin(test);
 
 var addPellet = function(text) {
-  console.log('in add pellet', JSON.stringify({text:text}));
+  // console.log('in add pellet', JSON.stringify({text:text}));
 
   $.ajax({
     url: 'http://localhost:8080/pellets',
@@ -75,7 +75,6 @@ class App extends React.Component {
 
   newItem(text) {
     addPellet(text);
-    console.log('this', this);
     update();
   }
 
