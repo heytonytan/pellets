@@ -26,10 +26,12 @@ var express = require('express');
 var expressJSON = require('express-json'); 
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var compression = require('compression');
 var server = express();
 server.use(cors());
 server.use(expressJSON()); 
 server.use(bodyParser()); 
+server.use(compression());
 
 var defaultCorsHeaders = {
   'access-control-allow-origin': '*',

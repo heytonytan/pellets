@@ -32,7 +32,7 @@ class VRContent extends React.Component {
           <a-cursor></a-cursor>
         </Camera>
 
-        <Sky src="url(http://images.akamai.steamusercontent.com/ugc/530670181250983741/6B809546E63C3435C2C5FCF4EADECAF7CDC04E23/)"/>
+        <Sky src='url(http://images.akamai.steamusercontent.com/ugc/530670181250983741/6B809546E63C3435C2C5FCF4EADECAF7CDC04E23/)' />
 
         <Entity light={{type: 'ambient', color: '#888'}}/>
         <Entity light={{type: 'directional', intensity: 0.5}} position='-1 1 0'/>
